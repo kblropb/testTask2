@@ -56,7 +56,7 @@ class VisitorSearchModel
                 FROM client_visit as clvn WHERE clvn.visit_date > :clvnDateFrom AND clvn.visit_date < :clvnDateTo
                 GROUP BY clvn.`client`) AS nov ON nov.client = cl.id
 
-                WHERE clv.visit_date > :dateFrom AND clv.visit_date < :dateTo'
+                WHERE clv.visit_date >= :dateFrom AND clv.visit_date <= :dateTo'
 
             . $this->compileFilterConditions($visitsFilterDTO) .
 

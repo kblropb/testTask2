@@ -95,7 +95,7 @@ class VisitsFilterDTO
     {
         return (new \DateTime())
             ->setTimestamp(time())
-            ->setTimezone(new \DateTimeZone('UCT'))
+            ->setTimezone(new \DateTimeZone('UTC'))
             ->modify('-10 year')
             ->format('Y-m-d H:i:s');
     }
