@@ -26,6 +26,7 @@ class VisitorSearchModel
 
     /**
      * @param VisitsFilterDTO $visitsFilterDTO
+     *
      * @return array
      */
     public function search($visitsFilterDTO)
@@ -39,8 +40,8 @@ class VisitorSearchModel
                     ,cld.name AS clientDistrict
                     ,nov.numberOfVisits 
                     , MAX(clv.visit_date) AS lastVisitDate
-                    ,clvc.name
-                    ,clvc.id AS lastVisitedCity
+                    ,clvc.name AS lastVisitedCity
+                    ,clvc.id AS lastVisitedCityId
                     ,clvd.name AS lastVisitedDistrict
                 FROM client_visit AS clv
                 LEFT JOIN `client` AS cl ON clv.`client` = cl.id
@@ -73,6 +74,7 @@ class VisitorSearchModel
 
     /**
      * @param VisitsFilterDTO $visitsFilterDTO
+     *
      * @return string
      */
     protected function compileFilterConditions($visitsFilterDTO)
@@ -94,6 +96,7 @@ class VisitorSearchModel
 
     /**
      * @param VisitsFilterDTO $visitsFilterDTO
+     *
      * @return string
      */
     protected function compileFilterOrderBy($visitsFilterDTO)

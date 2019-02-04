@@ -1,0 +1,15 @@
+{
+    "name": "ihar/test-task2",
+    "authors": [
+        {
+            "name": "ihar",
+            "email": "kblropb@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "backend\\" : "backend"
+        }
+    }
+}
