@@ -1,14 +1,20 @@
 window.$ = window.jQuery = require("jquery");
 
 import Vue from 'vue'
-import App from './App.vue'
+import './js/grid';
 
-new Vue({
+let app = new Vue({
     el: '#app',
-    render: h => h(App)
+    data: {
+        columns: [
+            'Имя',
+            'Город',
+            'Район',
+            'Кол-во посещений',
+            'Дата последнего посещения',
+            'Город последнего посещения',
+            'Район последнего посещения'
+        ],
+        visits: visits,
+    }
 });
-
-
-$(function () {
-
-})
