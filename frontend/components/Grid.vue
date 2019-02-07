@@ -6,15 +6,12 @@
                     <div class="field">
                         <input type="text" name="name" ref="name" @change="updateName">
                     </div>
-
                     <list
                             :listName="clientCities.listName"
                             :items="clientCities.items"
                             :placeholder="clientCities.placeholder"
                             @change="updateClientCities"
-
                     />
-
                     <list
                             :listName="visitedCities.listName"
                             :items="visitedCities.items"
@@ -22,8 +19,6 @@
                             :afterSelect="getGridData"
                             @change="updateVisitedCities"
                     />
-
-
                 </div>
 
                 <div class="two fields">
@@ -40,7 +35,7 @@
         <table class="ui table celled">
             <thead>
             <tr>
-                <th v-for="column in columns">{{column}}</th>
+                <th v-for="column in columns" @click="sortBy(column.key)">{{column.value}}</th>
             </tr>
             </thead>
             <tbody>
@@ -75,13 +70,13 @@
             list
         },
         methods: {
-            updateName(e) {
+            updateName() {
                 this.$emit('change', {
                     name: this.$refs.name.value
                 })
             },
 
-            updatePeriod(e) {
+            updatePeriod() {
                 this.$emit('change', {
                     dateFrom: this.$refs.from.value,
                     dateTo: this.$refs.to.value,
@@ -96,6 +91,11 @@
             updateVisitedCities(e) {
                 this.$emit('change', {
                     visitedCities: e.value
+                })
+            },
+            sortBy(key) {
+                this.$emit('sortBy', {
+                    key: key
                 })
             }
         }

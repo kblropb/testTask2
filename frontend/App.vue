@@ -8,8 +8,8 @@
                     :gridData="gridData"
                     :clientCities="clientCities"
                     :visitedCities="visitedCities"
-
                     @change="getGridData"
+                    @sortBy="sortBy"
             />
         </div>
     </div>
@@ -32,13 +32,13 @@
                 },
                 loading: false,
                 columns: [
-                    'Имя',
-                    'Город',
-                    'Район',
-                    'Кол-во посещений',
-                    'Дата последнего посещения',
-                    'Город последнего посещения',
-                    'Район последнего посещения'
+                    {key: 'clientName', value: 'Имя'},
+                    {key: 'clientCity', value: 'Город'},
+                    {key: 'clientDistrict', value: 'Район'},
+                    {key: 'numberOfVisits', value: 'Кол-во посещений'},
+                    {key: 'lastVisitDate', value: 'Дата последнего посещения'},
+                    {key: 'lastVisitedCity', value: 'Город последнего посещения'},
+                    {key: 'lastVisitedDistrict', value: 'Район последнего посещения'},
                 ],
                 gridData: visits,
                 clientCities: {
@@ -51,6 +51,8 @@
                     placeholder: 'Город последнего посещения',
                     items: clientCities
                 },
+                prevOrderKey: null,
+                isReverse: false,
                 filterTimeout: null
             }
         },
@@ -58,6 +60,24 @@
             Grid
         },
         methods: {
+            sortBy(e) {
+                let _this = this;
+                if (_this.prevOrderKey === e.key) {
+                    _this.isReverse = !_this.isReverse;
+                }
+                _this.gridData.sort((a, b) => {
+                    if (a[e.key] < b[e.key]) {
+
+                        return _this.isReverse ? 1 : -1;
+                    }
+                    if (a[e.key] > b[e.key]) {
+                        return _this.isReverse ? -1 : 1;
+                    }
+                    return 0;
+                });
+                _this.prevOrderKey = e.key
+            },
+
             getGridData(e) {
                 if (this.filterTimeout) {
                     clearTimeout(this.filterTimeout)
@@ -82,7 +102,6 @@
             },
 
             getFilterParams(e) {
-                debugger
                 this.filter = $.extend({}, this.filter, e);
                 let params = $.extend({}, this.filter, e);
                 params.clientCities = params.clientCities.split(',');
@@ -109,5 +128,9 @@
 
     #app.disabled * {
         cursor: not-allowed;
+    }
+
+    #app th {
+        cursor: pointer;
     }
 </style>
