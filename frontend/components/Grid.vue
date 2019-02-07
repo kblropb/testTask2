@@ -2,10 +2,11 @@
     <div id="grid">
         <form id="filter" class="ui form" @submit.prevent>
             <div class="field">
-                <div class="four fields">
+                <div class="two fields">
                     <div class="field">
                         <input type="text" name="name" ref="name" @change="updateName">
                     </div>
+
                     <list
                             :listName="clientCities.listName"
                             :items="clientCities.items"
@@ -13,6 +14,7 @@
                             @change="updateClientCities"
 
                     />
+
                     <list
                             :listName="visitedCities.listName"
                             :items="visitedCities.items"
@@ -20,6 +22,17 @@
                             :afterSelect="getGridData"
                             @change="updateVisitedCities"
                     />
+
+
+                </div>
+
+                <div class="two fields">
+                    <div class="field">
+                        <input type="date" name="from" ref="from" @change="updatePeriod" placeholder="Начиная с">
+                    </div>
+                    <div class="field">
+                        <input type="date" name="to" ref="to" @change="updatePeriod" placeholder="Заканчива по">
+                    </div>
                 </div>
             </div>
         </form>
@@ -63,9 +76,15 @@
         },
         methods: {
             updateName(e) {
-                console.log(e);
                 this.$emit('change', {
                     name: this.$refs.name.value
+                })
+            },
+
+            updatePeriod(e) {
+                this.$emit('change', {
+                    dateFrom: this.$refs.from.value,
+                    dateTo: this.$refs.to.value,
                 })
             },
 

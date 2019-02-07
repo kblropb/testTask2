@@ -27,6 +27,8 @@
                     clientCities: '',
                     visitedCities: '',
                     name: '',
+                    dateFrom: null,
+                    dateTo: null
                 },
                 loading: false,
                 columns: [
