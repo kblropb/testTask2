@@ -4,7 +4,7 @@
             <div class="field">
                 <div class="two fields">
                     <div class="field">
-                        <input type="text" name="name" ref="name" @change="updateName">
+                        <input type="text" name="name" ref="name" @change="updateName" placeholder="Имя клиента">
                     </div>
                     <list
                             :listName="clientCities.listName"
