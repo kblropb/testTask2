@@ -7,11 +7,15 @@
                             :listName="clientCities.listName"
                             :items="clientCities.items"
                             :placeholder="clientCities.placeholder"
+                            @change="updateClientCities"
+
                     />
                     <list
-                            :listName="lastVisitedCities.listName"
-                            :items="lastVisitedCities.items"
-                            :placeholder="lastVisitedCities.placeholder"
+                            :listName="visitedCities.listName"
+                            :items="visitedCities.items"
+                            :placeholder="visitedCities.placeholder"
+                            :afterSelect="getGridData"
+                            @change="updateVisitedCities"
                     />
                 </div>
             </div>
@@ -47,10 +51,23 @@
             columns: Array,
             gridData: Array,
             clientCities: Object,
-            lastVisitedCities: Object
+            visitedCities: Object,
+            getGridData: Function
         },
         components: {
             list
+        },
+        methods: {
+            updateClientCities(e) {
+                this.$emit('change', {
+                    clientCities: e.value
+                })
+            },
+            updateVisitedCities(e) {
+                this.$emit('change', {
+                    visitedCities: e.value
+                })
+            }
         }
     }
 </script>

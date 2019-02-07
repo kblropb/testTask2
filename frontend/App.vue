@@ -1,19 +1,20 @@
 <template>
-    <div id="app">
+    <div id="app" :class="{'disabled': loading}">
         <div class="ui container">
             <h1>Funcking vue components</h1>
             <grid
                     :columns="columns"
                     :gridData="gridData"
                     :clientCities="clientCities"
-                    :lastVisitedCities="lastVisitedCities"
+                    :visitedCities="visitedCities"
+
+                    @change="getGridData"
             />
         </div>
     </div>
 </template>
 
 <script>
-
     import axios from 'axios'
     import Grid from './components/Grid'
 
@@ -21,6 +22,11 @@
         name: "App",
         data() {
             return {
+                filter: {
+                    clientCities: '',
+                    visitedCities: '',
+                },
+                loading: false,
                 columns: [
                     'Имя',
                     'Город',
@@ -32,49 +38,71 @@
                 ],
                 gridData: visits,
                 clientCities: {
-                    listName: 'clientCity',
+                    listName: 'clientCities',
                     placeholder: 'Из какого города клиент?',
-                    items: [
-                        {
-                            value: 1,
-                            text: 'Жлобин'
-                        },
-                        {
-                            value: 2,
-                            text: 'Гомель',
-                        }
-                    ]
+                    items: clientCities
                 },
-                lastVisitedCities: {
-                    listName: 'lastVisitedCity',
+                visitedCities: {
+                    listName: 'visitedCities',
                     placeholder: 'Город последнего посещения',
-                    items: [
-                        {
-                            value: 1,
-                            text: 'Жлобин'
-                        },
-                        {
-                            value: 2,
-                            text: 'Гомель',
-                        }
-                    ]
-                }
+                    items: clientCities
+                },
+                filterTimeout: null
             }
         },
         components: {
             Grid
         },
-    methods: {
-        sendRequest() {
-            axios.post('visitor/getList', {
-                key: 'value'
-            }).then((response) => {
-                this.gridData = response.data
-            }).catch((error) => {
-                console.log(error)
-            })
+        methods: {
+            getGridData(e) {
+                if (this.filterTimeout) {
+                    clearTimeout(this.filterTimeout)
+                }
+                this.filterTimeout = setTimeout(() => {
+                    this.sendRequest(this.getFilterParams(e), this.hidePreloader);
+                }, 1500);
+            },
+
+            sendRequest(filterParams, next) {
+                this.showPreloader();
+                axios.post('visitor/getList', filterParams)
+                    .then((response) => {
+                        this.gridData = response.data
+                    })
+                    .catch((error) => {
+                        console.log(error)
+                    })
+                    .finally(() => {
+                        next()
+                    })
+            },
+
+            getFilterParams(e) {
+                this.filter = $.extend({}, this.filter, e);
+                let params = $.extend({}, this.filter, e);
+                params.clientCities = params.clientCities.split(',');
+                params.visitedCities = params.visitedCities.split(',');
+
+                return params
+            },
+
+            showPreloader() {
+                this.loading = true;
+            },
+
+            hidePreloader() {
+                this.loading = false;
+            }
         }
-    }
     }
 </script>
 
+<style lang="css">
+    #app.disabled {
+        opacity: .6;
+    }
+
+    #app.disabled * {
+        cursor: not-allowed;
+    }
+</style>
