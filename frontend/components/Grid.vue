@@ -1,8 +1,11 @@
 <template>
     <div id="grid">
-        <form id="filter" class="ui form">
+        <form id="filter" class="ui form" @submit.prevent>
             <div class="field">
                 <div class="four fields">
+                    <div class="field">
+                        <input type="text" name="name" ref="name" @change="updateName">
+                    </div>
                     <list
                             :listName="clientCities.listName"
                             :items="clientCities.items"
@@ -48,6 +51,7 @@
     export default {
         name: "Grid",
         props: {
+            value: String,
             columns: Array,
             gridData: Array,
             clientCities: Object,
@@ -58,6 +62,13 @@
             list
         },
         methods: {
+            updateName(e) {
+                console.log(e);
+                this.$emit('change', {
+                    name: this.$refs.name.value
+                })
+            },
+
             updateClientCities(e) {
                 this.$emit('change', {
                     clientCities: e.value

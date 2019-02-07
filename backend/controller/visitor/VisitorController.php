@@ -33,13 +33,25 @@ class VisitorController extends Controller
      */
     public function actionGetList($params = [])
     {
-        $dto = (new VisitsFilterDTO())->fromArray(array_map('array_filter', $params));
         $searchModel = new VisitorSearchModel();
-        $visits = $searchModel->search($dto);
+        $visits = $searchModel->search($this->createDTO($params));
 
         return json_encode($visits, JSON_UNESCAPED_UNICODE);
     }
 
+    /**
+     * @param $params
+     *
+     * @return VisitsFilterDTO
+     */
+    private function createDTO($params)
+    {
+        $params['clientCities'] = array_filter($params['clientCities']);
+        $params['visitedCities'] = array_filter($params['visitedCities']);
+        $dto = (new VisitsFilterDTO())->fromArray(array_filter($params));
+
+        return $dto;
+    }
     /**
      * @return array
      */

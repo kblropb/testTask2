@@ -1,7 +1,7 @@
 <template>
     <div class="field">
         <div class="ui multiple selection dropdown">
-            <input type="hidden" :name="listName" ref="list" :value="value" @change="updateValue">
+            <input type="hidden" :name="listName" ref="list" @change="updateValue">
             <i class="dropdown icon"></i>
             <div class="default text">{{placeholder}}</div>
             <div class="menu">

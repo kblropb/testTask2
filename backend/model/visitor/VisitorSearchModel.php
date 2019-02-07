@@ -89,7 +89,7 @@ class VisitorSearchModel
         }
 
         if ($name = $visitsFilterDTO->getName()) {
-            $filterConditions .= ' AND cl.name = ' . $name;
+            $filterConditions .= ' AND cl.name = \'' . $name .'\'';
         }
         return $filterConditions;
     }

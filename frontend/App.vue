@@ -26,6 +26,7 @@
                 filter: {
                     clientCities: '',
                     visitedCities: '',
+                    name: '',
                 },
                 loading: false,
                 columns: [
@@ -79,6 +80,7 @@
             },
 
             getFilterParams(e) {
+                debugger
                 this.filter = $.extend({}, this.filter, e);
                 let params = $.extend({}, this.filter, e);
                 params.clientCities = params.clientCities.split(',');
