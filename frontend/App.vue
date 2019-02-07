@@ -2,6 +2,7 @@
     <div id="app" :class="{'disabled': loading}">
         <div class="ui container">
             <h1>Funcking vue components</h1>
+            <h3>Выбери значение из спика и через 1.5 секунды обновятся данные</h3>
             <grid
                     :columns="columns"
                     :gridData="gridData"
