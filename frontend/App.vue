@@ -14,6 +14,7 @@
 
 <script>
 
+    import axios from 'axios'
     import Grid from './components/Grid'
 
     export default {
@@ -62,7 +63,18 @@
         },
         components: {
             Grid
+        },
+    methods: {
+        sendRequest() {
+            axios.post('visitor/getList', {
+                key: 'value'
+            }).then((response) => {
+                this.gridData = response.data
+            }).catch((error) => {
+                console.log(error)
+            })
         }
+    }
     }
 </script>
 

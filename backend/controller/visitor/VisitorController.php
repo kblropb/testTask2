@@ -21,4 +21,14 @@ class VisitorController extends Controller
 
         return $this->render('', ['visits' => $visits]);
     }
+
+    public function actionGetList($params = [])
+    {
+        var_dump($params); die;
+        $dto = (new VisitsFilterDTO())->fromArray([]);
+        $searchModel = new VisitorSearchModel();
+        $visits = $searchModel->search($dto);
+
+        return json_encode($visits, JSON_UNESCAPED_UNICODE);
+    }
 }

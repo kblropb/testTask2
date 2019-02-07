@@ -2,7 +2,7 @@
     <div id="grid">
         <form id="filter" class="ui form">
             <div class="field">
-                <div class="two fields">
+                <div class="four fields">
                     <list
                             :listName="clientCities.listName"
                             :items="clientCities.items"
@@ -39,7 +39,6 @@
 </template>
 
 <script>
-
     import list from './list'
 
     export default {
@@ -54,5 +53,4 @@
             list
         }
     }
-
 </script>
