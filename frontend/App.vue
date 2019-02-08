@@ -8,6 +8,7 @@
                     :gridData="gridData"
                     :clientCities="clientCities"
                     :visitedCities="visitedCities"
+                    :sortKey="'clientName'"
                     @change="getGridData"
                     @sortBy="sortBy"
             />
@@ -61,21 +62,7 @@
         },
         methods: {
             sortBy(e) {
-                let _this = this;
-                if (_this.prevOrderKey === e.key) {
-                    _this.isReverse = !_this.isReverse;
-                }
-                _this.gridData.sort((a, b) => {
-                    if (a[e.key] < b[e.key]) {
-
-                        return _this.isReverse ? 1 : -1;
-                    }
-                    if (a[e.key] > b[e.key]) {
-                        return _this.isReverse ? -1 : 1;
-                    }
-                    return 0;
-                });
-                _this.prevOrderKey = e.key
+                this.gridData = e.data;
             },
 
             getGridData(e) {

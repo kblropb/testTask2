@@ -62,10 +62,21 @@
             value: String,
             columns: Array,
             gridData: Array,
+            sortKey: String,
             clientCities: Object,
             visitedCities: Object,
             getGridData: Function
         },
+
+        data() {
+            return {
+                propGridData: this.gridData,
+
+                prevOrderKey: null,
+                isReverse: false
+            }
+        },
+
         components: {
             list
         },
@@ -84,6 +95,7 @@
             },
 
             updateClientCities(e) {
+                console.log(this.propGridData);
                 this.$emit('change', {
                     clientCities: e.value
                 })
@@ -94,9 +106,30 @@
                 })
             },
             sortBy(key) {
+                let _this = this;
+                if (_this.prevOrderKey === key) {
+                    _this.isReverse = !_this.isReverse;
+                }
+                _this.propGridData.sort((a, b) => {
+                    if (a[key] < b[key]) {
+
+                        return _this.isReverse ? 1 : -1;
+                    }
+                    if (a[key] > b[key]) {
+                        return _this.isReverse ? -1 : 1;
+                    }
+                    return 0;
+                });
+                _this.prevOrderKey = key;
+
                 this.$emit('sortBy', {
-                    key: key
+                    data: _this.propGridData
                 })
+            },
+        },
+        computed: {
+            orderedGridData() {
+                return this.propGridData;
             }
         }
     }
