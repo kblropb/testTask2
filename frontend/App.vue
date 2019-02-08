@@ -3,13 +3,16 @@
         <div class="ui container">
             <h1>Funking vue components</h1>
             <h3>Выбери значение из списка и через 1.5 секунды обновятся данные</h3>
+            <filter-form
+                    :clientCities="clientCities"
+                    :visitedCities="visitedCities"
+                    @change="getGridData"
+            />
             <grid
                     :columns="columns"
                     :gridData="gridData"
-                    :clientCities="clientCities"
-                    :visitedCities="visitedCities"
+
                     :sortKey="'clientName'"
-                    @change="getGridData"
                     @sortBy="sortBy"
             />
         </div>
@@ -18,6 +21,7 @@
 
 <script>
     import axios from 'axios'
+    import FilterForm from './components/FilterForm'
     import Grid from './components/Grid'
 
     export default {
@@ -58,7 +62,7 @@
             }
         },
         components: {
-            Grid
+            FilterForm, Grid
         },
         methods: {
             sortBy(e) {
