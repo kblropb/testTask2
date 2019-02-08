@@ -2,7 +2,8 @@
     <div id="app" :class="{'disabled': loading}">
         <div class="ui container">
             <h1>Funking vue components</h1>
-            <h3>Выбери значение из списка и через 1.5 секунды обновятся данные</h3>
+            <h3>Выбери значение из списка и через {{this.filterTimeout / 1000}}
+                {{this.declension(this.filterTimeout / 1000, ['секунду', 'секунды', 'секунд'])}} обновятся данные</h3>
             <filter-form
                     :clientCities="clientCities"
                     :visitedCities="visitedCities"
@@ -92,7 +93,7 @@
             },
 
             getFilterParams(e) {
-                let params = this.filter =$.extend({}, this.filter, e);
+                let params = this.filter = $.extend({}, this.filter, e);
                 params.clientCities = params.clientCities.split(',');
                 params.visitedCities = params.visitedCities.split(',');
 
@@ -105,6 +106,12 @@
 
             hidePreloader() {
                 this.loading = false;
+            },
+
+            declension(number, textForms) {
+                number = Math.round(number);
+                let cases = [2, 0, 1, 1, 1, 2];
+                return textForms[(number % 100 > 4 && number % 100 < 20) ? 2 : cases[(number % 10 < 5) ? number % 10 : 5]];
             }
         }
     }
