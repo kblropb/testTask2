@@ -95,7 +95,6 @@
             },
 
             updateClientCities(e) {
-                console.log(this.propGridData);
                 this.$emit('change', {
                     clientCities: e.value
                 })
