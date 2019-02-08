@@ -12,7 +12,6 @@
 </template>
 
 <script>
-    // @change="afterSelect"
     export default {
         name: "list",
         props: {

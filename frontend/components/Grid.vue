@@ -54,7 +54,7 @@
 </template>
 
 <script>
-    import list from './list'
+    import list from './List'
 
     export default {
         name: "Grid",
