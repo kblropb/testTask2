@@ -1,7 +1,6 @@
 window.$ = window.jQuery = require("jquery");
 
 import Vue from 'vue'
-import 'axios'
 import App from './App'
 
 let app = new Vue({
