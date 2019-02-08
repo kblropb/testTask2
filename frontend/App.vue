@@ -11,9 +11,7 @@
             <grid
                     :columns="columns"
                     :gridData="gridData"
-
-                    :sortKey="'clientName'"
-                    @sortBy="sortBy"
+                    @sort="sort"
             />
         </div>
     </div>
@@ -58,24 +56,25 @@
                 },
                 prevOrderKey: null,
                 isReverse: false,
-                filterTimeout: null
+                filterTimeoutId: null,
+                filterTimeout: 1500,
             }
         },
         components: {
             FilterForm, Grid
         },
         methods: {
-            sortBy(e) {
+            sort(e) {
                 this.gridData = e.data;
             },
 
             getGridData(e) {
-                if (this.filterTimeout) {
-                    clearTimeout(this.filterTimeout)
+                if (this.filterTimeoutId) {
+                    clearTimeout(this.filterTimeoutId)
                 }
-                this.filterTimeout = setTimeout(() => {
+                this.filterTimeoutId = setTimeout(() => {
                     this.sendRequest(this.getFilterParams(e), this.hidePreloader);
-                }, 1500);
+                }, this.filterTimeout);
             },
 
             sendRequest(filterParams, next) {
@@ -93,8 +92,7 @@
             },
 
             getFilterParams(e) {
-                this.filter = $.extend({}, this.filter, e);
-                let params = $.extend({}, this.filter, e);
+                let params = this.filter =$.extend({}, this.filter, e);
                 params.clientCities = params.clientCities.split(',');
                 params.visitedCities = params.visitedCities.split(',');
 

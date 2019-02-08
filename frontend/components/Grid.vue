@@ -27,7 +27,6 @@
         props: {
             columns: Array,
             gridData: Array,
-            sortKey: String,
             getGridData: Function
         },
 
