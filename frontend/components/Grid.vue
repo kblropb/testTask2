@@ -27,7 +27,6 @@
         props: {
             columns: Array,
             gridData: Array,
-            getGridData: Function
         },
 
         data() {
@@ -56,10 +55,6 @@
                     return 0;
                 });
                 _this.prevOrderKey = key;
-
-                this.$emit('sortBy', {
-                    data: _this.propGridData
-                })
             },
         }
     }

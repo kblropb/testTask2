@@ -12,7 +12,6 @@
             <grid
                     :columns="columns"
                     :gridData="gridData"
-                    @sort="sort"
             />
         </div>
     </div>
@@ -65,10 +64,6 @@
             FilterForm, Grid
         },
         methods: {
-            sort(e) {
-                this.gridData = e.data;
-            },
-
             getGridData(e) {
                 if (this.filterTimeoutId) {
                     clearTimeout(this.filterTimeoutId)
