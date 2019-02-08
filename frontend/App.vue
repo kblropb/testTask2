@@ -89,8 +89,8 @@
 
             getFilterParams(e) {
                 let params = this.filter = $.extend({}, this.filter, e);
-                params.clientCities = params.clientCities.split(',');
-                params.visitedCities = params.visitedCities.split(',');
+                params.clientCities = !Array.isArray(params.clientCities) ? params.clientCities.split(',') : params.clientCities;
+                params.visitedCities = !Array.isArray(params.visitedCities) ? params.visitedCities.split(',') : params.visitedCities;
 
                 return params
             },
