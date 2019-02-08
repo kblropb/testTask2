@@ -1,5 +1,6 @@
 <?php
 /** @var array $visits */
+/** @var array $clientCities */
 ?>
 
 <script>

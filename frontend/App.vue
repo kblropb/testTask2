@@ -54,8 +54,6 @@
                     placeholder: 'Город последнего посещения',
                     items: clientCities
                 },
-                prevOrderKey: null,
-                isReverse: false,
                 filterTimeoutId: null,
                 filterTimeout: 1500,
             }
@@ -112,16 +110,25 @@
     }
 </script>
 
-<style lang="css">
-    #app.disabled {
-        opacity: .6;
-    }
+<style lang="less">
+    #app {
+        h1 {
+            margin: 3.5rem 0;
+        }
+        h3 {
+            margin: 2.5rem 0;
+        }
 
-    #app.disabled * {
-        cursor: not-allowed;
-    }
+        &.disabled {
+            opacity: .6;
 
-    #app th {
-        cursor: pointer;
+            * {
+                cursor: not-allowed;
+            }
+        }
+
+        th {
+            cursor: pointer;
+        }
     }
 </style>
